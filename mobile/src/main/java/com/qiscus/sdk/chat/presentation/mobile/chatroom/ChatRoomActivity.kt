@@ -22,12 +22,17 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import com.qiscus.sdk.chat.core.Qiscus
+import com.qiscus.sdk.chat.domain.interactor.comment.PostComment
 import com.qiscus.sdk.chat.domain.model.Room
 import com.qiscus.sdk.chat.presentation.listcomment.ListCommentContract
 import com.qiscus.sdk.chat.presentation.mobile.R
 import com.qiscus.sdk.chat.presentation.model.CommentViewModel
 import com.qiscus.sdk.chat.presentation.sendcomment.SendCommentContract
 import com.qiscus.sdk.chat.presentation.uikit.comment.CommentAdapter
+import com.qiscus.sdk.chat.presentation.uikit.widget.QiscusCommentComposer
 import kotlinx.android.synthetic.main.activity_chat_room.*
 
 /**
@@ -57,27 +62,66 @@ class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendComm
 
     private val adapter = CommentAdapter()
 
+    private val useCaseFactory = Qiscus.instance.useCaseFactory
+    private val commentFactory = Qiscus.instance.commentFactory
+    private val postComment = useCaseFactory.postComment()
+
     private var roomId: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room)
 
+        getIntentExtras()
+
+        initAdapter()
+
+        initRecyclerView()
+
+        iniAction()
+
+        init()
+    }
+
+    private fun iniAction() {
+        commentComposer.setAction(object : QiscusCommentComposer.QiscusCommentComposerListener {
+            override fun onClickSend(v: View?, message: String) {
+                Toast.makeText(applicationContext, "Send", Toast.LENGTH_SHORT).show()
+                sendMessage(message)
+            }
+
+            override fun onClickAttachment(v: View?) {
+                Toast.makeText(applicationContext, "attach", Toast.LENGTH_SHORT).show()
+            }
+
+            override fun onClickInsertEmoticon(v: View?) {
+                Toast.makeText(applicationContext, "insert emoticon", Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun sendMessage(msg: String) {
+        val comment = commentFactory.createTextComment(roomId!!, msg)
+        postComment.execute(PostComment.Params(comment))
+    }
+
+    private fun initRecyclerView() {
+        commentRecyclerView.adapter = adapter
+        commentRecyclerView.layoutManager = LinearLayoutManager(this)
+        commentRecyclerView.setHasFixedSize(true)
+    }
+
+    private fun initAdapter() {
+        adapter.registerViewHolderFactory(TextViewHolderFactory(this))
+        adapter.registerViewHolderFactory(ImageViewHolderFactory(this))
+        adapter.registerViewHolderFactory(DefaultViewHolderFactory(this))
+    }
+
+    private fun getIntentExtras() {
         roomId = intent.getStringExtra(INTENT_ROOM_ID)
         if (roomId == null) {
             throw RuntimeException("Please provide room id!")
         }
-
-
-        adapter.registerViewHolderFactory(TextViewHolderFactory(this))
-        adapter.registerViewHolderFactory(ImageViewHolderFactory(this))
-        adapter.registerViewHolderFactory(DefaultViewHolderFactory(this))
-
-        commentRecyclerView.adapter = adapter
-        commentRecyclerView.layoutManager = LinearLayoutManager(this)
-        commentRecyclerView.setHasFixedSize(true)
-
-        init()
     }
 
     private fun init() {

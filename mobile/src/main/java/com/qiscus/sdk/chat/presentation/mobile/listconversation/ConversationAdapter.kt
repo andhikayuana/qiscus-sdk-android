@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.qiscus.sdk.chat.presentation.mobile.R
@@ -79,6 +80,7 @@ class ConversationAdapter(private val context: Context) : SortedAdapter<Conversa
     }
 
     class VH(view: View) : RecyclerView.ViewHolder(view) {
+        private val roomItem: LinearLayout = view.findViewById(R.id.roomItem) as LinearLayout
         private val roomAvatarView: ImageView = view.findViewById(R.id.roomAvatar) as ImageView
         private val roomNameView: TextView = view.findViewById(R.id.roomName) as TextView
         private val lastMessageView: TextView = view.findViewById(R.id.lastMessage) as TextView
@@ -105,7 +107,7 @@ class ConversationAdapter(private val context: Context) : SortedAdapter<Conversa
                 lastMessageDateView.setTextColor(normalColor)
             }
 
-            roomAvatarView.setOnClickListener {
+            roomItem.setOnClickListener {
                 it.context.startActivity(it.context.chatRoomIntent(conversationViewModel.room))
             }
         }
