@@ -2,4 +2,5 @@
 <resources>
     <string name="qiscus_web_preview_default_title">Untitled</string>
     <string name="qiscus_web_preview_default_description">No description!</string>
+    <string name="qiscus_hint_message">Type a message…</string>
 </resources>

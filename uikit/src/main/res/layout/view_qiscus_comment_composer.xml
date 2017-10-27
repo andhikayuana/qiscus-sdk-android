@@ -13,35 +13,32 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <com.qiscus.sdk.chat.presentation.uikit.widget.CircularImageView
-                android:id="@+id/commentComposerAttachFile"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_qiscus_attach_file" />
-
-            <com.qiscus.sdk.chat.presentation.uikit.widget.CircularImageView
+            <ImageView
                 android:id="@+id/commentComposerInsertEmoticon"
-                android:layout_width="46dp"
-                android:layout_height="46dp"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:clickable="true"
-                android:padding="8dp"
-                android:src="@drawable/ic_qiscus_insert_emoticon" />
+                style="@style/CommentComposerIcon"
+                android:src="@drawable/ic_qiscus_emot" />
 
-            <EditText
+            <com.qiscus.sdk.chat.presentation.uikit.widget.QiscusEditText
                 android:id="@+id/commentComposerTextField"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1" />
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:hint="@string/qiscus_hint_message"
+                android:imeOptions="actionSend"
+                android:inputType="textLongMessage|textAutoCorrect|textCapSentences|textMultiLine"
+                android:maxLines="4"
+                android:nextFocusRight="@+id/commentComposerButtonSend"
+                android:padding="8dp"
+                android:textColor="@color/qiscus_primary_text"
+                android:textSize="16sp"
+                app:emojiSize="22sp" />
 
-            <Button
+            <ImageView
                 android:id="@+id/commentComposerButtonSend"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Send" />
+                style="@style/CommentComposerIcon"
+                android:src="@drawable/ic_qiscus_attach" />
 
         </LinearLayout>
 

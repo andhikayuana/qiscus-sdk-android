@@ -55,7 +55,8 @@ fun Context.chatRoomIntent(roomId: String): Intent {
 
 private const val INTENT_ROOM_ID = "room_id"
 
-class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendCommentContract.View {
+class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendCommentContract.View,
+        QiscusCommentComposer.QiscusCommentComposerListener {
 
     private lateinit var listCommentPresenter: ListCommentContract.Presenter
     private lateinit var sendCommentPresenter: SendCommentContract.Presenter
@@ -84,20 +85,15 @@ class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendComm
     }
 
     private fun iniAction() {
-        commentComposer.setAction(object : QiscusCommentComposer.QiscusCommentComposerListener {
-            override fun onClickSend(v: View?, message: String) {
-                Toast.makeText(applicationContext, "Send", Toast.LENGTH_SHORT).show()
-                sendMessage(message)
-            }
+        commentComposer.setAction(this)
+    }
 
-            override fun onClickAttachment(v: View?) {
-                Toast.makeText(applicationContext, "attach", Toast.LENGTH_SHORT).show()
-            }
+    override fun onClickSend(v: View?, message: String) {
+        sendMessage(message)
+    }
 
-            override fun onClickInsertEmoticon(v: View?) {
-                Toast.makeText(applicationContext, "insert emoticon", Toast.LENGTH_SHORT).show()
-            }
-        })
+    override fun onClickInsertEmoticon(v: View?) {
+        Toast.makeText(applicationContext, "insert emoticon", Toast.LENGTH_SHORT).show()
     }
 
     private fun sendMessage(msg: String) {

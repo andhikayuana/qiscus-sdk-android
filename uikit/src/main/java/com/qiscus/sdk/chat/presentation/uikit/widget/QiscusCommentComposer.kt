@@ -20,8 +20,8 @@ import kotlinx.android.synthetic.main.view_qiscus_comment_composer.view.*
 class QiscusCommentComposer : FrameLayout {
 
     private var mView: View? = null
-    private var iconAttachment: Drawable? = null
     private var iconEmoticon: Drawable? = null
+    private var iconSend: Drawable? = null
 
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         init(attrs)
@@ -44,8 +44,8 @@ class QiscusCommentComposer : FrameLayout {
         try {
 
 //            TODO : styleable
-            iconAttachment = a.getDrawable(R.styleable.QiscusCommentComposer_btnAttachmentIcon)
             iconEmoticon = a.getDrawable(R.styleable.QiscusCommentComposer_btnEmoticonIcon)
+            iconSend = a.getDrawable(R.styleable.QiscusCommentComposer_btnSendIcon)
 
             initDefaultAttrs()
 
@@ -55,8 +55,8 @@ class QiscusCommentComposer : FrameLayout {
     }
 
     private fun initDefaultAttrs() {
-        if (iconAttachment == null) iconAttachment = ContextCompat.getDrawable(context, R.drawable.ic_qiscus_attach_file)
-        if (iconEmoticon == null) iconEmoticon = ContextCompat.getDrawable(context, R.drawable.ic_qiscus_insert_emoticon)
+        if (iconEmoticon == null) iconEmoticon = ContextCompat.getDrawable(context, R.drawable.ic_qiscus_emot)
+        if (iconSend == null) iconSend = ContextCompat.getDrawable(context, R.drawable.ic_qiscus_attach)
     }
 
     override fun onFinishInflate() {
@@ -71,9 +71,6 @@ class QiscusCommentComposer : FrameLayout {
                 commentComposerTextField.setText("")
             }
         }
-        commentComposerAttachFile.setOnClickListener {
-            callback.onClickAttachment(it)
-        }
         commentComposerInsertEmoticon.setOnClickListener {
             callback.onClickInsertEmoticon(it)
         }
@@ -82,8 +79,8 @@ class QiscusCommentComposer : FrameLayout {
 
     private fun displayAttrs() {
 //        todo
-        commentComposerAttachFile.setImageDrawable(iconAttachment)
         commentComposerInsertEmoticon.setImageDrawable(iconEmoticon)
+        commentComposerButtonSend.setImageDrawable(iconSend)
         invalidateAndRequestLayout()
     }
 
@@ -103,8 +100,6 @@ class QiscusCommentComposer : FrameLayout {
     interface QiscusCommentComposerListener {
 
         fun onClickSend(v: View?, message: String)
-
-        fun onClickAttachment(v: View?)
 
         fun onClickInsertEmoticon(v: View?)
     }
