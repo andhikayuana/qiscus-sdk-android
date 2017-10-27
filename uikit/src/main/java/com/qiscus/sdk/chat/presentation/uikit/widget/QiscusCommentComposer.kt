@@ -90,6 +90,7 @@ class QiscusCommentComposer : FrameLayout {
         }
         commentComposerTextField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                callback.onBeforeTextFieldChanged(s, start, count, after)
             }
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -97,6 +98,7 @@ class QiscusCommentComposer : FrameLayout {
 
             override fun afterTextChanged(s: Editable?) {
                 onMessageEditTextChanged(s)
+                callback.onAfterTextFieldChanged(s)
             }
         })
     }
@@ -142,5 +144,9 @@ class QiscusCommentComposer : FrameLayout {
         fun onClickSend(v: View?, message: String)
 
         fun onClickInsertEmoticon(v: View?)
+
+        fun onBeforeTextFieldChanged(s: CharSequence?, start: Int, count: Int, after: Int)
+
+        fun onAfterTextFieldChanged(s: Editable?)
     }
 }

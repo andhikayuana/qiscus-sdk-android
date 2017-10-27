@@ -21,6 +21,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.text.Editable
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -94,6 +95,14 @@ class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendComm
 
     override fun onClickInsertEmoticon(v: View?) {
         Toast.makeText(applicationContext, "insert emoticon", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onBeforeTextFieldChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//        TODO listen typing indicator
+    }
+
+    override fun onAfterTextFieldChanged(s: Editable?) {
+//        TODO listen typing indicator
     }
 
     private fun sendMessage(msg: String) {
