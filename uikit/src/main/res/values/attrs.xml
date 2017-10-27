@@ -57,5 +57,6 @@
     <declare-styleable name="QiscusCommentComposer">
         <attr name="btnEmoticonIcon" format="integer" />
         <attr name="btnSendIcon" format="integer" />
+        <attr name="btnAttachment" format="integer" />
     </declare-styleable>
 </resources>
