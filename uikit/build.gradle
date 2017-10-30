@@ -70,6 +70,7 @@ dependencies {
     compile uikitDependencies.rxAndroid
     compile uikitDependencies.glide
     compile uikitDependencies.manggil
+    compile uikitDependencies.flexbox
 
     testImplementation uikitTestDependencies.kotlinJUnit
 

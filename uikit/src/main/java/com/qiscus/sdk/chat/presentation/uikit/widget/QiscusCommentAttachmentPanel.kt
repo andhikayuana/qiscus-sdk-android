@@ -10,7 +10,7 @@ import android.widget.FrameLayout
  * @author yuana
  * @since 10/27/17
  */
-class QiscusAttachmentPanel : FrameLayout {
+class QiscusCommentAttachmentPanel : FrameLayout {
 
     @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         init(attrs)
