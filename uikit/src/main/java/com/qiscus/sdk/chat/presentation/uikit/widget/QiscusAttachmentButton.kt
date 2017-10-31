@@ -1,29 +1,35 @@
 package com.qiscus.sdk.chat.presentation.uikit.widget
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
+import android.support.annotation.DrawableRes
 import android.support.annotation.RequiresApi
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.LinearLayout
+import android.widget.FrameLayout
 import com.qiscus.sdk.chat.presentation.uikit.R
+import kotlinx.android.synthetic.main.view_qiscus_attachment_button.view.*
 
 /**
  * @author yuana
- * @since 10/27/17
+ * @since 10/30/17
  */
-class QiscusCommentAttachmentPanel : LinearLayout {
+
+class QiscusAttachmentButton : FrameLayout {
 
     private var mView: View? = null
+    private var iconButton: Drawable? = null
 
     @JvmOverloads
-    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         init(attrs)
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int, defStyleRes: Int) : super(context, attrs, defStyleAttr, defStyleRes) {
         init(attrs)
     }
 
@@ -32,23 +38,20 @@ class QiscusCommentAttachmentPanel : LinearLayout {
 
         val a = this.context.theme.obtainStyledAttributes(
                 attrs,
-                R.styleable.QiscusCommentAttachmentPanel,
+                R.styleable.QiscusAttachmentButton,
                 0, 0
         )
 
         try {
 
 //            TODO : styleable
+            iconButton = a.getDrawable(R.styleable.QiscusAttachmentButton_btnIcon)
 
             initDefaultAttrs()
 
         } finally {
             a.recycle()
         }
-    }
-
-    private fun initDefaultAttrs() {
-        //todo
     }
 
     override fun onFinishInflate() {
@@ -58,6 +61,7 @@ class QiscusCommentAttachmentPanel : LinearLayout {
 
     private fun displayAttrs() {
         //todo
+        attachmentBtnIcon.setImageDrawable(iconButton)
         invalidateAndRequestLayout()
     }
 
@@ -66,7 +70,14 @@ class QiscusCommentAttachmentPanel : LinearLayout {
         requestLayout()
     }
 
-    private fun inflateView(): View = getInflater().inflate(R.layout.view_qiscus_comment_attachment_panel, this)
+    private fun initDefaultAttrs() {
+//        todo
+        if (iconButton == null) iconButton = getDrawable(android.R.drawable.ic_menu_camera)
+    }
+
+    private fun getDrawable(@DrawableRes icon: Int) = ContextCompat.getDrawable(context, icon)
+
+    private fun inflateView(): View = getInflater().inflate(R.layout.view_qiscus_attachment_button, this)
 
     private fun getInflater(): LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 }

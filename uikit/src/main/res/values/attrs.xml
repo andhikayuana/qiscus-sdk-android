@@ -59,4 +59,14 @@
         <attr name="btnSendIcon" format="integer" />
         <attr name="btnAttachment" format="integer" />
     </declare-styleable>
+
+    <declare-styleable name="QiscusAttachmentButton">
+        <attr name="btnIcon" format="integer" />
+        <attr name="btnBackground" format="integer" />
+        <attr name="btnLabel" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="QiscusCommentAttachmentPanel">
+        <attr name="icHalo" format="integer" />
+    </declare-styleable>
 </resources>

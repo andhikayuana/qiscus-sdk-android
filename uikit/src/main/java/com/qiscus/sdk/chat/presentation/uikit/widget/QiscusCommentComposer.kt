@@ -31,7 +31,8 @@ class QiscusCommentComposer : FrameLayout {
     private var animBtnSendSwitch: Animation? = null
     private var isFieldMessageEmpty: Boolean = true
 
-    @JvmOverloads constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
+    @JvmOverloads
+    constructor(context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0) : super(context, attrs, defStyleAttr) {
         init(attrs)
     }
 
@@ -126,13 +127,9 @@ class QiscusCommentComposer : FrameLayout {
         invalidateAndRequestLayout()
     }
 
-    private fun inflateView(): View {
-        return getInflater().inflate(R.layout.view_qiscus_comment_composer, this)
-    }
+    private fun inflateView(): View = getInflater().inflate(R.layout.view_qiscus_comment_composer, this)
 
-    private fun getInflater(): LayoutInflater {
-        return context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-    }
+    private fun getInflater(): LayoutInflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
     private fun invalidateAndRequestLayout() {
         invalidate()
