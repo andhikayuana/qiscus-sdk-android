@@ -81,14 +81,14 @@ class QiscusCommentComposer : FrameLayout {
 
     fun setAction(callback: QiscusCommentComposerListener) {
         commentComposerButtonSend.setOnClickListener {
-            if (commentComposerTextField.text.isNotBlank()) {
-                callback.onClickSend(it, commentComposerTextField.text.toString())
-                commentComposerTextField.setText("")
-            }
+            callback.onClickSend(it, commentComposerTextField.text.toString())
+            commentComposerTextField.setText("")
         }
+
         commentComposerInsertEmoticon.setOnClickListener {
             callback.onClickInsertEmoticon(it)
         }
+
         commentComposerTextField.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
                 callback.onBeforeTextFieldChanged(s, start, count, after)

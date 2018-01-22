@@ -33,8 +33,10 @@
         android:layout_alignParentBottom="true" />
 
     <com.qiscus.sdk.chat.presentation.uikit.widget.QiscusCommentAttachmentPanel
+        android:id="@+id/commentAttachmentPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

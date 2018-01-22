@@ -7,7 +7,9 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Toast
 import com.qiscus.sdk.chat.presentation.uikit.R
+import kotlinx.android.synthetic.main.view_qiscus_comment_attachment_panel.view.*
 
 /**
  * @author yuana
@@ -45,6 +47,8 @@ class QiscusCommentAttachmentPanel : LinearLayout {
         } finally {
             a.recycle()
         }
+
+        btnAttachmentClose.setOnClickListener { Toast.makeText(context, "hi", Toast.LENGTH_SHORT).show() }
     }
 
     private fun initDefaultAttrs() {

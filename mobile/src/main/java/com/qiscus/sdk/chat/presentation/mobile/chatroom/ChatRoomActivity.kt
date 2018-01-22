@@ -90,7 +90,15 @@ class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendComm
     }
 
     override fun onClickSend(v: View?, message: String) {
-        sendMessage(message)
+        if (message.isNotEmpty()) {
+            sendMessage(message)
+        } else {
+            showAttachmentPanel(true)
+        }
+    }
+
+    private fun showAttachmentPanel(visible: Boolean) {
+        commentAttachmentPanel.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     override fun onClickInsertEmoticon(v: View?) {
@@ -140,6 +148,7 @@ class ChatRoomActivity : AppCompatActivity(), ListCommentContract.View, SendComm
 
     override fun onStart() {
         super.onStart()
+        showAttachmentPanel(false)
         init()
     }
 
